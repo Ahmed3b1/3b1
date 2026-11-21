@@ -1,6 +1,9 @@
+import { auth } from '@/auth' ;
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import connectToDatabase from "@/lib/db" ; 
+import User from "@/models/User" ;
 
 import {
     DropdownMenu,
@@ -14,6 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LayoutDashboard, Zap, FileText, CreditCard, Settings, LogOut, Menu } from "lucide-react";
 
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { ModeToggle } from "@/components/mode-toggle" ;
 
 const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -131,11 +135,41 @@ export default async function DashboardLayout({
                                     </Button>
                                 </DropdownMenuTrigger>
 
-                                {/* DropdownMenuContent goes here */}
+                                {/* DropdownMenuContent */}
+                                <DropdownMenuContent align="end" className="w-56">
+                                    <DropdownMenuLabel className="font-normal">
+                                        <div className="flex flex-col space-y-1">
+                                            <p className="text-sm font-medium leading-none">{session.user.name}</p>
+                                            <p className="text-xs leading-none text-muted-foreground ">{session.user.email}</p>
+                                        </div>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/dashboard/settings" >Settings</Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>Support</DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <form action={async () => {
+                                        "use server";
+                                        await signOut();
+                                    }}>
+                                        <DropdownMenuItem asChild>
+                                            <button className="w-full text-left text-destructive">Logout</button>
+                                        </DropdownMenuItem>
+                                    </form>
+                                </DropdownMenuContent>
+                            
+
+                
                             </DropdownMenu>
                         </div>
                     </div>
                 </header>
+                <main className="flex-1 p-4 sm:p-6 lg:p-8">
+                    <div className="mx-auto max-w-7xl">
+                        {children}
+                    </div>
+                </main>
 
             
 
