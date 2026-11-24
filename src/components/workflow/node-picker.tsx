@@ -6,7 +6,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { NODE_TYPES_LIST } from "@/lib/workflow/registry";
+import { NODE_TYPES_LIST } from "@/lib/workflow/registery";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
