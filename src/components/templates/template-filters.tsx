@@ -58,10 +58,12 @@ export default function TemplateFilters() {
                     onChange={(e) => handleSearch(e.target.value)}
                 />
             </div>
-            <Select defaultValue={searchParams.get("category")?.toString() || "All"}
-                onValueChange={handleCategoryChange}>
-                <SelectTrigger>
-                    <SelectValue />
+            <Select
+                defaultValue={searchParams.get("category")?.toString() || "All"}
+                onValueChange={handleCategoryChange}
+            >
+                <SelectTrigger className="w-full sm:w-45">
+                    <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
                     {CATEGORIES.map((category) => (
